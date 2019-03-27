@@ -50,12 +50,22 @@ name_movies = []
 number_of_movies = 100
 number_of_movies.times { name_movies << Faker::Movie.quote }
 
-name_members.each { |member| puts "INSERT INTO members(\"name_member\", \"phone\", \"address\") VALUES ('#{member}', '#{Faker::Number.number(9)}', '#{Faker::Address.full_address}');" }
+number_of_cassettes = number_of_movies * 2
 
-format_type.each { |type|  puts "INSERT INTO formats(\"name_format\") VALUES ('#{type}');" }
+number_of_orders = number_of_cassettes * 2
 
-movie_categories.each { |categorie| puts "INSERT INTO categories(\"name_category\") VALUES ('#{categorie}');" }
+name_members.each { |member| puts "INSERT INTO members(name_member, phone, address) VALUES ('#{member}', '#{Faker::Number.number(9)}', '#{Faker::Address.full_address}');" }
 
-name_actors.each { |actor| puts "INSERT INTO actors(\"name_actor\") VALUES ('#{actor}');" }
+format_type.each { |type|  puts "INSERT INTO formats(name_format) VALUES ('#{type}');" }
 
-name_movies.each { |movie| puts "INSERT INTO movies(\"movie_title\", \"category_id\", \"casting_id\") VALUES ('#{movie}', '#{rand(movie_categories.count) + 1}', '#{rand(number_of_actors) + 1}');" }
+movie_categories.each { |categorie| puts "INSERT INTO categories(name_category) VALUES ('#{categorie}');" }
+
+name_actors.each { |actor| puts "INSERT INTO actors(name_actor) VALUES ('#{actor}');" }
+
+name_movies.each { |movie| puts "INSERT INTO movies(movie_title, category_id) VALUES ('#{movie}', '#{rand(movie_categories.count) + 1}');" }
+
+number_of_movies.times { puts "INSERT INTO casting(actor_id, movie_id) VALUES ('#{rand(name_actors.count) + 1}', '#{rand(name_movies.count) + 1}');" }
+
+number_of_cassettes.times { puts "INSERT INTO cassettes(movie_id, format_id) VALUES ('#{rand(name_movies.count) + 1}', '#{format_type.sample}');" }
+
+# number_of_orders.times { puts "INSERT INTO orders(rental_date, return_date, cassette_id, member_id) VALUES ('#{Faker::Date.backward(600)}', '#{}', '#{rand(number_of_cassettes) + 1}', '#{rand(number_of_members) + 1}');" }

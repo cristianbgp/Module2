@@ -20,22 +20,20 @@ CREATE TABLE actors(
     name_actor text
 );
 
+CREATE TABLE movies(
+    movie_id SERIAL PRIMARY KEY,
+    movie_title text,
+  	category_id integer REFERENCES categories
+);
+
 CREATE TABLE casting (
     casting_id SERIAL PRIMARY KEY,
     actor_id integer REFERENCES actors,
     movie_id integer REFERENCES movies
 );
 
-CREATE TABLE movies(
-    movie_id SERIAL PRIMARY KEY,
-    movie_title text,
-  	category_id integer REFERENCES categories,
-  	casting_id integer REFERENCES casting
-);
-
 CREATE TABLE cassettes(
     cassette_id SERIAL PRIMARY KEY,
-    name_cassette text,
   	movie_id integer REFERENCES movies,
   	format_id integer REFERENCES formats
 );
