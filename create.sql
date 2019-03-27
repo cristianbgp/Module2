@@ -1,47 +1,47 @@
 CREATE TABLE members (
-    member_id integer PRIMARY KEY,
+    member_id SERIAL PRIMARY KEY,
     name_member text,
     phone numeric,
   	address text
 );
 
 CREATE TABLE formats (
-    format_id integer PRIMARY KEY,
+    format_id SERIAL PRIMARY KEY,
     name_format text
 );
 
 CREATE TABLE categories (
-    category_id integer PRIMARY KEY,
+    category_id SERIAL PRIMARY KEY,
     name_category text
 );
 
 CREATE TABLE actors(
-    actor_id integer PRIMARY KEY,
+    actor_id SERIAL PRIMARY KEY,
     name_actor text
 );
 
-CREATE TABLE movies(
-    movie_id integer PRIMARY KEY,
-    movie_tittle text,
-  	category_id integer,
-  	actor_id integer REFERENCES actors
-);
-
 CREATE TABLE casting (
-    casting_id integer PRIMARY KEY,
+    casting_id SERIAL PRIMARY KEY,
     actor_id integer REFERENCES actors,
     movie_id integer REFERENCES movies
 );
 
+CREATE TABLE movies(
+    movie_id SERIAL PRIMARY KEY,
+    movie_title text,
+  	category_id integer REFERENCES categories,
+  	casting_id integer REFERENCES casting
+);
+
 CREATE TABLE cassettes(
-    cassette_id integer PRIMARY KEY,
+    cassette_id SERIAL PRIMARY KEY,
     name_cassette text,
   	movie_id integer REFERENCES movies,
   	format_id integer REFERENCES formats
 );
 
 CREATE TABLE orders(
-    order_id integer PRIMARY KEY,
+    order_id SERIAL PRIMARY KEY,
   	rental_date date,
   	return_date date,
   	cassette_id integer REFERENCES cassettes,
